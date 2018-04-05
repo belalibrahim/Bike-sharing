@@ -102,3 +102,6 @@ ENV/
 
 # libreoffice
 .~lock*
+
+# pycharm
+.idea/
