@@ -33,10 +33,12 @@ model.add(Dense(1))
 # Stop the training after the loss increases 3 times in a row
 early_stopping_monitor = EarlyStopping(patience=3)
 
+# Save the best weights that minimize the loss
+checkpoint = ModelCheckpoint('model.h5', monitor='loss', verbose=1, save_best_only=True, mode='min')
+
 # Compile, train and save the model
 model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
-model.fit(predictors, response, validation_split=0.2, verbose=1, epochs=50, callbacks=[early_stopping_monitor])
-model.save('model.h5')
+model.fit(predictors, response, validation_split=0.2, verbose=1, epochs=50, callbacks=[checkpoint, early_stopping_monitor])
 '''
 
 # Load the model
