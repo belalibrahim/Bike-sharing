@@ -18,27 +18,30 @@ train = pd.read_csv('Dataset/reg_train.csv', index_col=['instant', 'dteday'])
 test = pd.read_csv('Dataset/reg_test.csv', index_col=['instant', 'dteday'])
 
 # Initialize the predictors and the response
-predictors = train.drop(['cnt'], axis=1)
+predictors = train.drop(['cnt', 'casual', 'registered'], axis=1)
 response = train['cnt']
 
 # Get the number of features
 n_cols = predictors.shape[1]
 
-'''
+
 # Build the model
 model = Sequential()
-model.add(Dense(10, activation='relu', input_shape=(n_cols,)))
+model.add(Dense(2048, activation='relu', input_shape=(n_cols,)))
+model.add(Dense(2048, activation='relu'))
+model.add(Dense(256, activation='relu'))
+model.add(Dense(128, activation='relu'))
 model.add(Dense(1))
 
 # Stop the training after the loss increases 3 times in a row
-early_stopping_monitor = EarlyStopping(patience=3)
+early_stop = EarlyStopping(patience=3)
 
 # Save the best weights that minimize the loss
 checkpoint = ModelCheckpoint('model.h5', monitor='loss', verbose=1, save_best_only=True, mode='min')
 
 # Compile, train and save the model
-model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
-model.fit(predictors, response, validation_split=0.2, verbose=1, epochs=50, callbacks=[checkpoint, early_stopping_monitor])
+model.compile(optimizer=Adam(lr=0.0001), loss='mse', metrics=['accuracy'])
+model.fit(predictors, response, validation_split=0.2, verbose=1, epochs=30, shuffle=True, callbacks=[checkpoint, early_stop])
 '''
 
 # Load the model
@@ -52,8 +55,9 @@ my_model.summary()
 
 # Set the data into the suitable format
 test = test.reset_index(level=1, drop=True)
-test = test.drop(['season', 'yr', 'mnth', 'hr', 'holiday', 'weekday', 'workingday', 'weathersit', 'temp', 'atemp', 'hum', 'windspeed', 'casual', 'registered'], axis=1)
+test = test.drop(['season', 'yr', 'mnth', 'hr', 'holiday', 'weekday', 'workingday', 'weathersit', 'temp', 'atemp', 'hum', 'windspeed'], axis=1)
 test['cnt'] = predictions
 
 # Save the data to csv format
 test.to_csv('output.csv', sep=',')
+'''
