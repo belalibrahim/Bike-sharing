@@ -11,3 +11,7 @@ for i in range(len(train.columns)):
 
     sns.distplot(train.iloc[:, i])
     plt.show()
+
+# Find the correlations between each pair of features with pairplot
+sns.pairplot(train)
+plt.show()
