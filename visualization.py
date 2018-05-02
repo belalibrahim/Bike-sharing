@@ -15,3 +15,7 @@ for i in range(len(train.columns)):
 # Find the correlations between each pair of features with pairplot
 sns.pairplot(train)
 plt.show()
+
+# Find the correlations between each pair of features with heatmap
+sns.heatmap(train.cov())
+plt.show()
