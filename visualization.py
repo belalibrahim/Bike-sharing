@@ -19,3 +19,8 @@ plt.show()
 # Find the correlations between each pair of features with heatmap
 sns.heatmap(train.cov())
 plt.show()
+
+# Plot ann output with histogram
+ann_output = pd.read_csv('ann_output.csv', index_col=['instant'])
+sns.distplot(ann_output['cnt'])
+plt.show()

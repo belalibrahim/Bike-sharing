@@ -59,5 +59,5 @@ test = test.drop(['season', 'yr', 'mnth', 'hr', 'holiday', 'weekday', 'workingda
 test['cnt'] = predictions
 
 # Save the data to csv format
-test.to_csv('output.csv', sep=',')
+test.to_csv('ann_output.csv', sep=',')
 '''
