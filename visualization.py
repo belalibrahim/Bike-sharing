@@ -17,7 +17,7 @@ sns.pairplot(train)
 plt.show()
 
 # Find the correlations between each pair of features with heatmap
-sns.heatmap(train.cov())
+sns.heatmap(train.corr())
 plt.show()
 
 # Plot ann output with histogram
