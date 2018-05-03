@@ -24,3 +24,9 @@ plt.show()
 ann_output = pd.read_csv('ann_output.csv', index_col=['instant'])
 sns.distplot(ann_output['cnt'])
 plt.show()
+
+# Plot lr output with histogram
+lr_output = pd.read_csv('lr_output.csv', index_col=['instant'])
+sns.distplot(lr_output['cnt'])
+plt.show()
+
